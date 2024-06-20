@@ -1,4 +1,4 @@
-module repo.abanicon.com/abantheter-microservices/glogger
+module github.com/mjedari/glogger
 
 go 1.19
 
