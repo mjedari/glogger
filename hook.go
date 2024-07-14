@@ -2,6 +2,7 @@ package glogger
 
 type SubscriptionList []ISubscriber
 
+// Subscribe to the logger
 func Subscribe(subscribers ...ISubscriber) {
 	for _, subscriber := range subscribers {
 		std.subscribers = append(std.subscribers, subscriber)

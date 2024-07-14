@@ -7,11 +7,27 @@ messages, gLogger sends the data to all subscribed services based on the log lev
 ## Install
 
 ```bash
-go get github.com/mjedari/glogger
+go get github.com/mjedari/glogger@latest
+```
+
+## Usage
+```go
+package main
+
+import (
+    "github.com/mjedari/glogger"
+)
+
+func main() {
+	// set production or development
+	glogger.SetConfig(glogger.Config{Production: configs.Config.IsProduction()})
+	
+	
+}
+
 ```
 
 ## Features
-
 ### Subscriber System:
 Allows you to subscribe external services (e.g., Sentry, Logstash) to receive log data.
 

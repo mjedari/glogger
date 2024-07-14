@@ -9,6 +9,7 @@ var std *Logger
 
 type LogLevel int
 
+// Levels of logging
 const (
 	DebugLevel LogLevel = iota
 	InfoLevel
@@ -74,10 +75,12 @@ func (f CustomFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	return formatter.Format(entry)
 }
 
+// Config is the configuration for the logger
 type Config struct {
 	Production bool
 }
 
+// SetConfig sets the configuration for the logger
 func SetConfig(config Config) {
 	if !config.Production {
 		std.production = false
@@ -92,22 +95,27 @@ func isAllowed(level LogLevel) bool {
 	return true
 }
 
+// Print is a wrapper of log.Print
 func Print(args ...any) {
 	log.Println(args...)
 }
 
+// Println is a wrapper of log.Printf
 func Println(format string, args ...any) {
 	log.Printf(format, args...)
 }
 
+// Log is a wrapper of logrus.Log
 func Log(args ...any) {
 	logrus.Println(args...)
 }
 
+// Logf is a wrapper of logrus.Logf
 func Logf(format string, args ...any) {
 	logrus.Printf(format, args...)
 }
 
+// Info is a wrapper of logrus.Info
 func Info(args ...any) {
 	// control the production flag
 	if !isAllowed(InfoLevel) {
@@ -117,6 +125,7 @@ func Info(args ...any) {
 	logrus.Infoln(args...)
 }
 
+// Infof is a wrapper of logrus.Infof
 func Infof(format string, args ...any) {
 	// print the log with format
 	if !isAllowed(InfoLevel) {
@@ -126,14 +135,17 @@ func Infof(format string, args ...any) {
 	logrus.Infof(format, args...)
 }
 
+// Debug is a wrapper of logrus.Debug
 func Debug(args ...any) {
 	logrus.Debug(args...)
 }
 
+// Debugf is a wrapper of logrus.Debugf
 func Debugf(format string, args ...any) {
 	logrus.Debugf(format, args...)
 }
 
+// Warn is a wrapper of logrus.Warn
 func Warn(args ...any) {
 	// control the production flag
 	if !isAllowed(WarnLevel) {
@@ -144,6 +156,7 @@ func Warn(args ...any) {
 	std.subscribers.publish(WarnLevel, []byte("error from Logger"))
 }
 
+// Warnf is a wrapper of logrus.Warnf
 func Warnf(format string, args ...any) {
 	// print the log with format
 	if !isAllowed(WarnLevel) {
@@ -153,6 +166,7 @@ func Warnf(format string, args ...any) {
 	logrus.Warnf(format, args...)
 }
 
+// Error is a wrapper of logrus.Error
 func Error(args ...any) {
 	// control the production flag
 	if !isAllowed(ErrorLevel) {
@@ -163,6 +177,7 @@ func Error(args ...any) {
 	std.subscribers.publish(ErrorLevel, []byte("error from Logger"))
 }
 
+// Errorf is a wrapper of logrus.Errorf
 func Errorf(format string, args ...any) {
 	// print the log with format
 	if !isAllowed(ErrorLevel) {
@@ -172,6 +187,7 @@ func Errorf(format string, args ...any) {
 	logrus.Errorf(format, args...)
 }
 
+// Fatal is a wrapper of logrus.Fatal
 func Fatal(args ...any) {
 	// control the production flag
 	if !isAllowed(FatalLevel) {
@@ -182,6 +198,7 @@ func Fatal(args ...any) {
 	logrus.Fatal(args...)
 }
 
+// Fatalf is a wrapper of logrus.Fatalf
 func Fatalf(format string, args ...any) {
 	// print the log with format
 	if !isAllowed(FatalLevel) {

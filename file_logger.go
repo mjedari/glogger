@@ -18,6 +18,7 @@ type FileLogger struct {
 	logger *logrus.Logger
 }
 
+// NewFileLogger creates a new file logger
 func NewFileLogger(name string) *FileLogger {
 	var file *os.File
 	existedFile, ok := openFiles.Load(name)
